@@ -1,10 +1,13 @@
 package m2dl.osgi.editor;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -16,6 +19,7 @@ import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class CodeViewerController {
 
@@ -96,9 +100,6 @@ public class CodeViewerController {
 		final FileChooser fileChooser = new FileChooser();
 		final File selectedFile = fileChooser.showOpenDialog(primaryStage);
 
-		/*
-		 * TODO complete this section to load the selected bundle.
-		 */
 		if (selectedFile != null) {
 			Activator.logger.info("File selected: " + selectedFile.getName());
 		} else {
@@ -116,12 +117,16 @@ public class CodeViewerController {
 		final FileChooser fileChooser = new FileChooser();
 		final File selectedFile = fileChooser.showOpenDialog(primaryStage);
 
-		/*
-		 * TODO complete this section to display the content of the file into
-		 * the webViewer.
-		 */
 		if (selectedFile != null) {
 			Activator.logger.info("File selected: " + selectedFile.getName());
+			WebEngine webEngine = webViewer.getEngine();
+			String fileContent;
+			try {
+				fileContent = new String(Files.readAllBytes(selectedFile.toPath()), "UTF-8");
+			} catch (IOException e) {
+				throw new RuntimeException("Impossible de lire le fichier: " + selectedFile.getAbsolutePath(), e);
+			}
+			webEngine.loadContent(fileContent, "text/plain");
 		} else {
 			Activator.logger.info("File selection cancelled.");
 		}
@@ -162,6 +167,12 @@ public class CodeViewerController {
 
 	public void setPrimaryStage(final Stage _stage) {
 		primaryStage = _stage;
+		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			@Override
+			public void handle(WindowEvent event) {
+				System.exit(0);
+			}
+		});
 	}
 
 }

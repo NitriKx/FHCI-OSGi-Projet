@@ -1,0 +1,15 @@
+!SESSION 2016-01-05 11:36:23.745 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.8.0_66
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=fr_FR
+Command-line arguments:  -clean -noExit -console
+
+!ENTRY org.eclipse.osgi 4 0 2016-01-05 11:36:23.745
+!MESSAGE Could not find bundle: org.eclipse.equinox.console
+!STACK 0
+org.osgi.framework.BundleException: Could not find bundle: org.eclipse.equinox.console
+	at org.eclipse.core.runtime.internal.adaptor.ConsoleManager.checkForConsoleBundle(ConsoleManager.java:58)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.startup(EclipseStarter.java:331)
+	at m2dl.osgi.main.MainOSGi.startOSGiFramework(MainOSGi.java:75)
+	at m2dl.osgi.main.MainOSGi.main(MainOSGi.java:48)

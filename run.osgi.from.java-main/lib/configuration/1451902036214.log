@@ -1,0 +1,25 @@
+!SESSION 2016-01-04 11:07:16.500 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.8.0_66
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=fr_FR
+
+!ENTRY test-bundle 4 0 2016-01-04 11:07:16.501
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: test-bundle [2]
+  Another singleton bundle selected: osgi.identity; osgi.identity="test-bundle"; type="osgi.bundle"; version:Version="1.0.0.201601041021"; singleton:="true"
+
+	at org.eclipse.osgi.container.Module.start(Module.java:434)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1582)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1562)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1533)
+	at org.eclipse.osgi.container.SystemModule.startWorker(SystemModule.java:242)
+	at org.eclipse.osgi.container.Module.doStart(Module.java:571)
+	at org.eclipse.osgi.container.Module.start(Module.java:439)
+	at org.eclipse.osgi.container.SystemModule.start(SystemModule.java:172)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle.start(EquinoxBundle.java:392)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle.start(EquinoxBundle.java:411)
+	at org.eclipse.osgi.launch.Equinox.start(Equinox.java:115)
+	at m2dl.osgi.main.MainOSGi.startOSGiFramework(MainOSGi.java:67)
+	at m2dl.osgi.main.MainOSGi.main(MainOSGi.java:40)

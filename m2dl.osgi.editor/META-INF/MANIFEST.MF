@@ -5,8 +5,10 @@ Bundle-SymbolicName: m2dl.osgi.editor;singleton:=true
 Bundle-Version: 1.0.0
 Bundle-Activator: m2dl.osgi.editor.Activator
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Import-Package: org.apache.log4j;version="1.2.15",
- org.osgi.framework;version="1.3.0"
+Import-Package: ch.qos.logback.core;version="1.0.7",
+ org.osgi.framework;version="1.3.0",
+ org.slf4j;version="1.7.2"
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: lib/jfxrt.jar,
  .
+Export-Package: m2dl.osgi.editor

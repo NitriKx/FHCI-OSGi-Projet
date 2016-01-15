@@ -1,8 +1,7 @@
 package m2dl.osgi.editor;
 
-import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
+
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
@@ -15,21 +14,16 @@ import javafx.stage.Stage;
 
 public class Activator implements BundleActivator {
 
+	public static final Logger logger = Logger.getLogger("m2dl.osgi.editor");
+	
 	/**
 	 * To know if the window is running.
 	 */
 	private static Boolean windowIsRunning = false;
-	/**
-	 * The logger.
-	 */
-	public static final Logger logger = LogManager.getLogger(Activator.class);
 
 	@Override
 	public void start(BundleContext bundleContext) throws Exception {
-		/*
-		 * Configuring the logger.
-		 */
-		BasicConfigurator.configure();
+
 		/*
 		 * Starting only one JavaFX window.
 		 */
@@ -65,7 +59,7 @@ public class Activator implements BundleActivator {
 					logger.info("The editor is running");
 
 				} catch (final Exception e) {
-					logger.debug("Error during loading the window");
+					logger.info("Error during loading the window");
 					e.printStackTrace();
 				}
 			});

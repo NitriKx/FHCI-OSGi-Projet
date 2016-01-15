@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.RadioMenuItem;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
@@ -73,9 +74,8 @@ public class CodeViewerController {
 
 	@FXML
 	void fireMenuCloseFile(ActionEvent event) {
-		/*
-		 * TODO close the opened file. The web viewer have to be clean.
-		 */
+		WebEngine webEngine = webViewer.getEngine();
+		webEngine.load("about:blank");
 	}
 
 	@FXML
@@ -83,6 +83,7 @@ public class CodeViewerController {
 		/*
 		 * TODO Close the window.
 		 */
+		System.exit(0);
 	}
 
 	/**

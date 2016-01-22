@@ -11,4 +11,5 @@ Import-Package: ch.qos.logback.core;version="1.0.7",
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: lib/jfxrt.jar,
  .
-Export-Package: m2dl.osgi.editor
+Export-Package: m2dl.osgi.editor,
+ m2dl.osgi.editor.interfaces

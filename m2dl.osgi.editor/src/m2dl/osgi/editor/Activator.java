@@ -1,9 +1,9 @@
 package m2dl.osgi.editor;
 
-import java.util.logging.Logger;
-
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
@@ -14,7 +14,9 @@ import javafx.stage.Stage;
 
 public class Activator implements BundleActivator {
 
-	public static final Logger logger = Logger.getLogger("m2dl.osgi.editor");
+	public static final Logger logger = LoggerFactory.getLogger("m2dl.osgi.editor");
+	
+	public static BundleContext context;
 	
 	/**
 	 * To know if the window is running.
@@ -24,6 +26,8 @@ public class Activator implements BundleActivator {
 	@Override
 	public void start(BundleContext bundleContext) throws Exception {
 
+		Activator.context = bundleContext;
+		
 		/*
 		 * Starting only one JavaFX window.
 		 */

@@ -4,7 +4,14 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
+
+import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.BundleException;
+import org.osgi.framework.ServiceReference;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -20,9 +27,13 @@ import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import m2dl.osgi.editor.interfaces.Tokenizer;
+import m2dl.osgi.editor.interfaces.Tokenizer.Type;
 
 public class CodeViewerController {
 
+	private Map<String, Bundle> loadedBundle = new LinkedHashMap<>(Type.values().length);
+	
 	/**
 	 * The main window of the application.
 	 */
@@ -99,6 +110,16 @@ public class CodeViewerController {
 
 		if (selectedFile != null) {
 			Activator.logger.info("File selected: " + selectedFile.getName());
+			try {
+				Bundle freshInstalledBundle = Activator.context.installBundle(selectedFile.getAbsolutePath());
+				String bundleSymbolicName = freshInstalledBundle.getHeaders().get("Bundle-SymbolicName");
+				this.loadedBundle.put(bundleSymbolicName, freshInstalledBundle);
+			} catch (Exception e) {
+				String message = String.format("Impossible d'installer le bundle: %s", selectedFile.getAbsolutePath());
+				Activator.logger.error(message, e);
+				throw new RuntimeException(message, e);
+			}
+			
 		} else {
 			Activator.logger.info("File selection cancelled.");
 		}
@@ -135,6 +156,27 @@ public class CodeViewerController {
 		 * If the css bundle is stated -> stop it otherwise start it (if it has
 		 * been loaded before)
 		 */
+		String tokenizerBundleName = String.format("m2dl.osgi.tokenizer.%s", "css");
+		boolean bundleHasBeenLoaded = this.loadedBundle.containsKey(tokenizerBundleName);
+		
+		if (bundleHasBeenLoaded == false) {
+			throw new RuntimeException("Vous devez charger le bundle " + tokenizerBundleName + " avant de vouloir le charger");
+		}
+		
+		Bundle cssTokenizerBundle = this.loadedBundle.get(tokenizerBundleName);
+		if (cssTokenizerBundle.getState() == Bundle.ACTIVE) {
+			try {
+				cssTokenizerBundle.stop();
+			} catch (BundleException e) {
+				throw new RuntimeException("Impossible d'arrêter le bundle " + tokenizerBundleName, e);
+			}
+		} else if (cssTokenizerBundle.getState() == Bundle.RESOLVED) {
+			try {
+				cssTokenizerBundle.start();
+			} catch (BundleException e) {
+				throw new RuntimeException("Impossible de démarrer le bundle " + tokenizerBundleName, e);
+			}
+		}
 	}
 
 	@FXML

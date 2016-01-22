@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Css
+Bundle-SymbolicName: m2dl.osgi.tokenizer.css
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: m2dl.osgi.colorator.css.Activator
+Bundle-Vendor: Benoît Sauvère
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Import-Package: m2dl.osgi.editor.interfaces,
+ org.osgi.framework;version="1.3.0"
+Bundle-ActivationPolicy: lazy

@@ -9,9 +9,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 import org.osgi.framework.Bundle;
-import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
-import org.osgi.framework.ServiceReference;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -27,12 +25,16 @@ import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import m2dl.osgi.editor.interfaces.Colorizer;
 import m2dl.osgi.editor.interfaces.Tokenizer;
 import m2dl.osgi.editor.interfaces.Tokenizer.Type;
 
 public class CodeViewerController {
 
 	private Map<String, Bundle> loadedBundle = new LinkedHashMap<>(Type.values().length);
+	
+	public Map<Type, Tokenizer> tokenizerServices = new LinkedHashMap<>();
+	public Colorizer colorizerService = null;
 	
 	/**
 	 * The main window of the application.
@@ -137,14 +139,8 @@ public class CodeViewerController {
 
 		if (selectedFile != null) {
 			Activator.logger.info("File selected: " + selectedFile.getName());
-			WebEngine webEngine = webViewer.getEngine();
-			String fileContent;
-			try {
-				fileContent = new String(Files.readAllBytes(selectedFile.toPath()), "UTF-8");
-			} catch (IOException e) {
-				throw new RuntimeException("Impossible de lire le fichier: " + selectedFile.getAbsolutePath(), e);
-			}
-			webEngine.loadContent(fileContent, "text/plain");
+			processFileThrgouhtColorationPipeline(selectedFile);
+			
 		} else {
 			Activator.logger.info("File selection cancelled.");
 		}
@@ -229,4 +225,38 @@ public class CodeViewerController {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param fileToProcess
+	 */
+	private void processFileThrgouhtColorationPipeline(File fileToProcess) {
+		WebEngine webEngine = webViewer.getEngine();
+		String fileContent;
+		try {
+			fileContent = new String(Files.readAllBytes(fileToProcess.toPath()), "UTF-8");
+			
+			if (this.tokenizerServices.size() > 0) {
+				Tokenizer tokenizer = this.tokenizerServices.values().iterator().next();
+				String tokenizedFileContent = tokenizer.tokenize(fileContent);
+				
+				if (this.colorizerService != null) {
+					 
+					Colorizer colorizer = this.colorizerService;
+					String colorizedFileContentAsHTML = this.colorizerService.colorize(tokenizedFileContent);
+					webEngine.loadContent(colorizedFileContentAsHTML, "text/html");
+					
+				} else {
+					webEngine.loadContent(tokenizedFileContent, "text/plain");
+				}
+				
+			} else {
+				webEngine.loadContent(fileContent, "text/plain");
+			}
+			 
+			
+		} catch (IOException e) {
+			throw new RuntimeException("Impossible de lire le fichier: " + fileToProcess.getAbsolutePath(), e);
+		}
+		
+	}
 }

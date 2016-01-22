@@ -2,6 +2,8 @@ package m2dl.osgi.editor;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
+import org.osgi.util.tracker.ServiceTracker;
+import org.osgi.util.tracker.ServiceTrackerCustomizer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,6 +13,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import m2dl.osgi.editor.interfaces.Colorizer;
+import m2dl.osgi.editor.interfaces.Tokenizer;
 
 public class Activator implements BundleActivator {
 
@@ -62,6 +66,16 @@ public class Activator implements BundleActivator {
 					windowIsRunning = true;
 					logger.info("The editor is running");
 
+					// Register the service trackers
+					final ServiceTrackerCustomizer<Tokenizer, Tokenizer> tokenizerCustomizer = new TokenizerServiceTracker(controller);
+					final ServiceTracker<Tokenizer, Tokenizer> mainServiceTokenizer = new ServiceTracker<Tokenizer, Tokenizer>(context, Tokenizer.class.getName(), tokenizerCustomizer);
+					mainServiceTokenizer.open();
+					
+					final ServiceTrackerCustomizer<Colorizer, Colorizer> colorizerCustomizer = new ColorizerServiceTracker(controller);
+					final ServiceTracker<Colorizer, Colorizer> mainServiceColorizer = new ServiceTracker<Colorizer, Colorizer>(context, Colorizer.class.getName(), colorizerCustomizer);
+					mainServiceColorizer.open();
+
+					
 				} catch (final Exception e) {
 					logger.info("Error during loading the window");
 					e.printStackTrace();

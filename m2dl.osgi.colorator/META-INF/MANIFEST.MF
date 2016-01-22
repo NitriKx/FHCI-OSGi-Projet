@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Syntaxparser
 Bundle-SymbolicName: m2dl.osgi.colorator
 Bundle-Version: 1.0.0.qualifier
-Bundle-Activator: m2dl.osgi.syntaxparser.Activator
+Bundle-Activator: m2dl.osgi.colorator.Activator
 Bundle-Vendor: Benoît Sauvère
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: ch.qos.logback.core;version="1.0.7",
@@ -11,4 +11,4 @@ Import-Package: ch.qos.logback.core;version="1.0.7",
  org.osgi.framework;version="1.3.0",
  org.slf4j;version="1.7.2"
 Bundle-ActivationPolicy: lazy
-Export-Package: m2dl.osgi.syntaxparser
+Export-Package: m2dl.osgi.colorator

@@ -1,4 +1,4 @@
-package m2dl.osgi.syntaxparser;
+package m2dl.osgi.colorator;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;

@@ -1,4 +1,4 @@
-package m2dl.osgi.syntaxparser.impl;
+package m2dl.osgi.colorator.impl;
 
 import m2dl.osgi.editor.interfaces.Tokenizer;
 

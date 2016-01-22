@@ -156,27 +156,8 @@ public class CodeViewerController {
 		 * If the css bundle is stated -> stop it otherwise start it (if it has
 		 * been loaded before)
 		 */
-		String tokenizerBundleName = String.format("m2dl.osgi.tokenizer.%s", "css");
-		boolean bundleHasBeenLoaded = this.loadedBundle.containsKey(tokenizerBundleName);
-		
-		if (bundleHasBeenLoaded == false) {
-			throw new RuntimeException("Vous devez charger le bundle " + tokenizerBundleName + " avant de vouloir le charger");
-		}
-		
-		Bundle cssTokenizerBundle = this.loadedBundle.get(tokenizerBundleName);
-		if (cssTokenizerBundle.getState() == Bundle.ACTIVE) {
-			try {
-				cssTokenizerBundle.stop();
-			} catch (BundleException e) {
-				throw new RuntimeException("Impossible d'arrêter le bundle " + tokenizerBundleName, e);
-			}
-		} else if (cssTokenizerBundle.getState() == Bundle.RESOLVED) {
-			try {
-				cssTokenizerBundle.start();
-			} catch (BundleException e) {
-				throw new RuntimeException("Impossible de démarrer le bundle " + tokenizerBundleName, e);
-			}
-		}
+		String cssBundleName = String.format("m2dl.osgi.tokenizer.%s", "css");
+		toggleBundleState(cssBundleName);
 	}
 
 	@FXML
@@ -185,6 +166,8 @@ public class CodeViewerController {
 		 * If the decorator bundle is stated -> stop it otherwise start it (if
 		 * it has been loaded before)
 		 */
+		String decoratorBundleName = String.format("m2dl.osgi.colorator");
+		toggleBundleState(decoratorBundleName);
 	}
 
 	@FXML
@@ -193,6 +176,8 @@ public class CodeViewerController {
 		 * If the Java bundle is stated -> stop it otherwise start it (if it has
 		 * been loaded before)
 		 */
+		String javaTokenizerBundleName = String.format("m2dl.osgi.tokenizer.%s", "java");
+		toggleBundleState(javaTokenizerBundleName);
 	}
 
 	@FXML
@@ -214,4 +199,34 @@ public class CodeViewerController {
 		});
 	}
 
+	
+	//
+	//
+	//   PRIVATE
+	//
+	//
+	
+	private void toggleBundleState(String tokenizerBundleName) {
+		boolean bundleHasBeenLoaded = this.loadedBundle.containsKey(tokenizerBundleName);
+		
+		if (bundleHasBeenLoaded == false) {
+			throw new RuntimeException("Vous devez charger le bundle " + tokenizerBundleName + " avant de vouloir le charger");
+		}
+		
+		Bundle cssTokenizerBundle = this.loadedBundle.get(tokenizerBundleName);
+		if (cssTokenizerBundle.getState() == Bundle.ACTIVE) {
+			try {
+				cssTokenizerBundle.stop();
+			} catch (BundleException e) {
+				throw new RuntimeException("Impossible d'arrêter le bundle " + tokenizerBundleName, e);
+			}
+		} else if (cssTokenizerBundle.getState() == Bundle.RESOLVED) {
+			try {
+				cssTokenizerBundle.start();
+			} catch (BundleException e) {
+				throw new RuntimeException("Impossible de démarrer le bundle " + tokenizerBundleName, e);
+			}
+		}
+	}
+	
 }

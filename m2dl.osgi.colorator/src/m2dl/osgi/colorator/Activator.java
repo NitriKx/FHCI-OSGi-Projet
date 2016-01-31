@@ -10,7 +10,7 @@ import org.osgi.framework.ServiceRegistration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import m2dl.osgi.colorator.impl.ColorizerImpl;
+import m2dl.osgi.colorator.impl.ColorizerServiceImpl;
 import m2dl.osgi.editor.interfaces.Colorizer;
 
 public class Activator implements BundleActivator {
@@ -38,7 +38,7 @@ public class Activator implements BundleActivator {
 			
 			@Override
 			public Colorizer getService(Bundle bundle, ServiceRegistration<Colorizer> registration) {
-				Colorizer colorizerService = new ColorizerImpl();
+				Colorizer colorizerService = new ColorizerServiceImpl();
 				return colorizerService;
 			}
 		};

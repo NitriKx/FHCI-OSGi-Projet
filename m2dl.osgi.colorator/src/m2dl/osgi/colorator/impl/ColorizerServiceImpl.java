@@ -12,7 +12,7 @@ public class ColorizerServiceImpl implements Colorizer {
 	private static final Map<Pattern, Color> colorationRules = new HashMap<Pattern, Color>();
 	static {
 		// @see https://regex101.com/r/mZ2kA1/1
-		colorationRules.put(Pattern.compile(":comment\\{([^\\}]*)\\}"), Color.GRAY);
+		colorationRules.put(Pattern.compile(":comment\\{([^\\}]*)\\}"), Color.LIGHT_GRAY);
 		colorationRules.put(Pattern.compile(":keyword\\{([^\\}]*)\\}"), Color.ORANGE);
 	}
 	
@@ -27,8 +27,8 @@ public class ColorizerServiceImpl implements Colorizer {
 			cumulativeColorizedText = tokenSelector.matcher(previousContent).replaceAll(String.format("<span style=\"color: %s\">$1</span>", associatedColorAsHex));
 		}
 		
-		String textWithBR = cumulativeColorizedText.toString().replaceAll("\n", "<br/>"); 
-		return "<html><body><pre>" + textWithBR  + "</pre></body></html>";
+		// String textWithBR = cumulativeColorizedText.toString().replaceAll("\n", "<br/>"); 
+		return "<html><body><pre>" + cumulativeColorizedText  + "</pre></body></html>";
 	}
 
 }

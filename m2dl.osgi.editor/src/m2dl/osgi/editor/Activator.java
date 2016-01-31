@@ -78,7 +78,7 @@ public class Activator implements BundleActivator {
 					
 				} catch (final Exception e) {
 					logger.info("Error during loading the window");
-					e.printStackTrace();
+					throw new RuntimeException(e);
 				}
 			});
 		}

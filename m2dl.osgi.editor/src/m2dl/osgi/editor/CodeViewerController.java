@@ -10,6 +10,8 @@ import java.util.ResourceBundle;
 
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -30,6 +32,8 @@ import m2dl.osgi.editor.interfaces.Tokenizer;
 import m2dl.osgi.editor.interfaces.Tokenizer.Type;
 
 public class CodeViewerController {
+	
+	private static final Logger logger = LoggerFactory.getLogger(CodeViewerController.class);
 
 	private Map<String, Bundle> loadedBundle = new LinkedHashMap<>(Type.values().length);
 	
@@ -113,7 +117,9 @@ public class CodeViewerController {
 		if (selectedFile != null) {
 			Activator.logger.info("File selected: " + selectedFile.getName());
 			try {
-				Bundle freshInstalledBundle = Activator.context.installBundle(selectedFile.getAbsolutePath());
+				String filePathWithProtocol = String.format("file://%s", selectedFile.getAbsolutePath());
+				Bundle freshInstalledBundle = Activator.context.installBundle(filePathWithProtocol);
+				freshInstalledBundle.stop();
 				String bundleSymbolicName = freshInstalledBundle.getHeaders().get("Bundle-SymbolicName");
 				this.loadedBundle.put(bundleSymbolicName, freshInstalledBundle);
 			} catch (Exception e) {
@@ -209,16 +215,18 @@ public class CodeViewerController {
 			throw new RuntimeException("Vous devez charger le bundle " + tokenizerBundleName + " avant de vouloir le charger");
 		}
 		
-		Bundle cssTokenizerBundle = this.loadedBundle.get(tokenizerBundleName);
-		if (cssTokenizerBundle.getState() == Bundle.ACTIVE) {
+		Bundle tokenizerBundle = this.loadedBundle.get(tokenizerBundleName);
+		if (tokenizerBundle.getState() == Bundle.ACTIVE || tokenizerBundle.getState() == Bundle.STARTING) {
 			try {
-				cssTokenizerBundle.stop();
+				tokenizerBundle.stop();
+				logger.info("Le bundle {} a été stoppé", tokenizerBundleName);
 			} catch (BundleException e) {
 				throw new RuntimeException("Impossible d'arrêter le bundle " + tokenizerBundleName, e);
 			}
-		} else if (cssTokenizerBundle.getState() == Bundle.RESOLVED) {
+		} else if (tokenizerBundle.getState() == Bundle.INSTALLED || tokenizerBundle.getState() == Bundle.RESOLVED) {
 			try {
-				cssTokenizerBundle.start();
+				tokenizerBundle.start();
+				logger.info("Le bundle {} a été démarré", tokenizerBundleName);
 			} catch (BundleException e) {
 				throw new RuntimeException("Impossible de démarrer le bundle " + tokenizerBundleName, e);
 			}
@@ -233,23 +241,27 @@ public class CodeViewerController {
 		WebEngine webEngine = webViewer.getEngine();
 		String fileContent;
 		try {
+			logger.info("Passage du fichier {} par le pipeline de coloration", fileToProcess.getAbsolutePath());
 			fileContent = new String(Files.readAllBytes(fileToProcess.toPath()), "UTF-8");
 			
 			if (this.tokenizerServices.size() > 0) {
 				Tokenizer tokenizer = this.tokenizerServices.values().iterator().next();
+				logger.info("STEP 1 - Envoi au service Tokenizer [type = {}]...", tokenizer.getType());
 				String tokenizedFileContent = tokenizer.tokenize(fileContent);
 				
 				if (this.colorizerService != null) {
-					 
 					Colorizer colorizer = this.colorizerService;
-					String colorizedFileContentAsHTML = this.colorizerService.colorize(tokenizedFileContent);
+					logger.info("STEP 2 - Envoi au service Colorizer ...");
+					String colorizedFileContentAsHTML = colorizer.colorize(tokenizedFileContent);
 					webEngine.loadContent(colorizedFileContentAsHTML, "text/html");
 					
 				} else {
+					logger.info("STEP 1 - Aucun colorateur de chargé. Affiche du fichier en version parsée sans couleurs...");
 					webEngine.loadContent(tokenizedFileContent, "text/plain");
 				}
 				
 			} else {
+				logger.info("Aucun bundle n'a été chargé, chargement du fichier en plain/text", fileToProcess.getAbsolutePath());
 				webEngine.loadContent(fileContent, "text/plain");
 			}
 			 

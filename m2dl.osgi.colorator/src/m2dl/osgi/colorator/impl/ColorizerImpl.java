@@ -13,8 +13,8 @@ public class ColorizerImpl implements Colorizer {
 	private static final Map<Pattern, Color> colorationRules = new HashMap<Pattern, Color>();
 	static {
 		// @see https://regex101.com/r/mZ2kA1/1
-		colorationRules.put(Pattern.compile(":comment{([^\\}]*)}", Pattern.CASE_INSENSITIVE), Color.GRAY);
-		colorationRules.put(Pattern.compile(":keyword{([^\\}]*)}", Pattern.CASE_INSENSITIVE), Color.ORANGE);
+		colorationRules.put(Pattern.compile(":comment{([^\\}]*}", Pattern.CASE_INSENSITIVE), Color.GRAY);
+		colorationRules.put(Pattern.compile(":keyword{([^\\}]*}", Pattern.CASE_INSENSITIVE), Color.ORANGE);
 	}
 	
 	@Override

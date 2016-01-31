@@ -1,16 +1,25 @@
 package m2dl.osgi.colorator;
 
+import java.util.Hashtable;
+
+import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
+import org.osgi.framework.ServiceFactory;
+import org.osgi.framework.ServiceRegistration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Activator implements BundleActivator {
+import m2dl.osgi.colorator.impl.ColorizerImpl;
+import m2dl.osgi.editor.interfaces.Colorizer;
 
-	private static BundleContext context;
+public class Activator implements BundleActivator {
 
 	private static final Logger logger = LoggerFactory.getLogger("m2dl.osgi.syntaxparser");
 	
+	private static BundleContext context;
+	private ServiceRegistration<Colorizer> serviceRegistration;
+
 	static BundleContext getContext() {
 		return context;
 	}
@@ -21,6 +30,20 @@ public class Activator implements BundleActivator {
 	 */
 	public void start(BundleContext bundleContext) throws Exception {
 		Activator.context = bundleContext;
+		
+		ServiceFactory<Colorizer> colorizerFactory = new ServiceFactory<Colorizer>() {
+			@Override
+			public void ungetService(Bundle bundle, ServiceRegistration<Colorizer> registration, Colorizer service) {
+			}
+			
+			@Override
+			public Colorizer getService(Bundle bundle, ServiceRegistration<Colorizer> registration) {
+				Colorizer colorizerService = new ColorizerImpl();
+				return colorizerService;
+			}
+		};
+		serviceRegistration = Activator.context.registerService(Colorizer.class, colorizerFactory, new Hashtable<String, Object>());
+		
 		logger.info("Module m2dl.osgi.colorator has been loaded");
 	}
 
@@ -30,6 +53,7 @@ public class Activator implements BundleActivator {
 	 */
 	public void stop(BundleContext bundleContext) throws Exception {
 		Activator.context = null;
+		serviceRegistration.unregister();
 	}
 
 }

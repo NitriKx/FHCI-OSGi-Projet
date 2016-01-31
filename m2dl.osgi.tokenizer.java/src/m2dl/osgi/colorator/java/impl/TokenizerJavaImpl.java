@@ -6,7 +6,7 @@ public class TokenizerJavaImpl implements Tokenizer {
 
 	@Override
 	public String tokenize(String textToTokenize) {
-		return null;
+		return "OK";
 	}
 
 	@Override

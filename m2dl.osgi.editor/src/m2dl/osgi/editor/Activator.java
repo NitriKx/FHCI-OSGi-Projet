@@ -1,11 +1,11 @@
 package m2dl.osgi.editor;
 
+import java.util.logging.Logger;
+
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.util.tracker.ServiceTracker;
 import org.osgi.util.tracker.ServiceTrackerCustomizer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
@@ -18,7 +18,7 @@ import m2dl.osgi.editor.interfaces.Tokenizer;
 
 public class Activator implements BundleActivator {
 
-	public static final Logger logger = LoggerFactory.getLogger("m2dl.osgi.editor");
+	public static final Logger logger = Logger.getLogger("m2dl.osgi.editor");
 	
 	public static BundleContext context;
 	

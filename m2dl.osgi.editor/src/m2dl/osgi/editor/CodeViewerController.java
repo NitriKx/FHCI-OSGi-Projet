@@ -7,11 +7,11 @@ import java.nio.file.Files;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -33,7 +33,7 @@ import m2dl.osgi.editor.interfaces.Tokenizer.Type;
 
 public class CodeViewerController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(CodeViewerController.class);
+	private static final Logger logger = Logger.getLogger(CodeViewerController.class.getName());
 
 	private Map<String, Bundle> loadedBundle = new LinkedHashMap<>(Type.values().length);
 	
@@ -124,7 +124,7 @@ public class CodeViewerController {
 				this.loadedBundle.put(bundleSymbolicName, freshInstalledBundle);
 			} catch (Exception e) {
 				String message = String.format("Impossible d'installer le bundle: %s", selectedFile.getAbsolutePath());
-				Activator.logger.error(message, e);
+				Activator.logger.log(Level.SEVERE, message, e);
 				throw new RuntimeException(message, e);
 			}
 			
@@ -219,14 +219,14 @@ public class CodeViewerController {
 		if (tokenizerBundle.getState() == Bundle.ACTIVE || tokenizerBundle.getState() == Bundle.STARTING) {
 			try {
 				tokenizerBundle.stop();
-				logger.info("Le bundle {} a été stoppé", tokenizerBundleName);
+				logger.info(String.format("Le bundle %s a été stoppé", tokenizerBundleName));
 			} catch (BundleException e) {
 				throw new RuntimeException("Impossible d'arrêter le bundle " + tokenizerBundleName, e);
 			}
 		} else if (tokenizerBundle.getState() == Bundle.INSTALLED || tokenizerBundle.getState() == Bundle.RESOLVED) {
 			try {
 				tokenizerBundle.start();
-				logger.info("Le bundle {} a été démarré", tokenizerBundleName);
+				logger.info(String.format("Le bundle %s a été démarré", tokenizerBundleName));
 			} catch (BundleException e) {
 				throw new RuntimeException("Impossible de démarrer le bundle " + tokenizerBundleName, e);
 			}
@@ -241,12 +241,12 @@ public class CodeViewerController {
 		WebEngine webEngine = webViewer.getEngine();
 		String fileContent;
 		try {
-			logger.info("Passage du fichier {} par le pipeline de coloration", fileToProcess.getAbsolutePath());
+			logger.info(String.format("Passage du fichier %s par le pipeline de coloration", fileToProcess.getAbsolutePath()));
 			fileContent = new String(Files.readAllBytes(fileToProcess.toPath()), "UTF-8");
 			
 			if (this.tokenizerServices.size() > 0) {
 				Tokenizer tokenizer = this.tokenizerServices.values().iterator().next();
-				logger.info("STEP 1 - Envoi au service Tokenizer [type = {}]...", tokenizer.getType());
+				logger.info(String.format("STEP 1 - Envoi au service Tokenizer [type = %s]...", tokenizer.getType()));
 				String tokenizedFileContent = tokenizer.tokenize(fileContent);
 				
 				if (this.colorizerService != null) {
@@ -261,7 +261,7 @@ public class CodeViewerController {
 				}
 				
 			} else {
-				logger.info("Aucun bundle n'a été chargé, chargement du fichier en plain/text", fileToProcess.getAbsolutePath());
+				logger.info(String.format("Aucun bundle n'a été chargé, chargement du fichier en plain/text"));
 				webEngine.loadContent(fileContent, "text/plain");
 			}
 			 

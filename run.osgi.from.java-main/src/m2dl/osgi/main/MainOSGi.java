@@ -12,7 +12,8 @@ import org.osgi.framework.BundleException;
 public class MainOSGi {
 
 	private static final String ECLIPSE_RCP_INSTALLED_PATH = "/Applications/Eclipse OSGi.app/Contents/Eclipse";
-
+	private static final String EXPORTED_FORLDER_PATH = "/Users/benoit/Google Drive/Université/S9/Not Shared/FHCI/OSGi/sujet-tp/gen-bundles/plugins";
+	
 	private static BundleContext bundleContext;
 
 	public static void installAndStartBundle(final String fileJar) {
@@ -20,7 +21,7 @@ public class MainOSGi {
 		final File fileBundle = new File(fileJar);
 		Bundle myBundle;
 		try {
-			myBundle = bundleContext.installBundle(fileBundle.toURI().toString());
+			myBundle = bundleContext.installBundle(String.format("file://%s", fileBundle.toString()));
 			myBundle.start();
 			System.out.println("The bundle " + fileJar + " installed and started");
 		} catch (final BundleException e) {
@@ -32,7 +33,7 @@ public class MainOSGi {
 
 		startOSGiFramework();
 
-		// installAndStartBundle("/tmp/plugins/m2dl.osgi.editor_1.0.0.jar");
+		installAndStartBundle(EXPORTED_FORLDER_PATH + "/m2dl.osgi.editor_1.0.0.jar");
 
 		showInstalledBundles();
 	}
@@ -58,8 +59,7 @@ public class MainOSGi {
 				// + "/plugins/org.eclipse.equinox.console_1.1.100.v20141023-1406.jar@start," + ECLIPSE_RCP_INSTALLED_PATH
 				+ "/plugins/org.eclipse.equinox.console_1.1.200.v20150929-1405.jar@start," + ECLIPSE_RCP_INSTALLED_PATH
 				+ "/plugins/org.apache.felix.gogo.runtime_0.10.0.v201209301036.jar@start," + ECLIPSE_RCP_INSTALLED_PATH
-				+ "/plugins/org.apache.felix.gogo.shell_0.10.0.v201212101605.jar@start," + ECLIPSE_RCP_INSTALLED_PATH
-				+ "/plugins/org.apache.log4j_1.2.15.v201012070815.jar@start,");
+				+ "/plugins/org.apache.felix.gogo.shell_0.10.0.v201212101605.jar@start," + ECLIPSE_RCP_INSTALLED_PATH);
 		/*
 		 * Pour avoir un accès à OSGi en telnet (telnet localhost 8080)
 		 */
@@ -69,7 +69,13 @@ public class MainOSGi {
 			 * Démarrage de OSGi
 			 */
 			EclipseStarter.setInitialProperties(properties);
-			bundleContext = EclipseStarter.startup(new String[] { "-clean" }, null);
+			bundleContext = EclipseStarter.startup(new String[] { "-clean" }, new Runnable() {
+				
+				@Override
+				public void run() {
+					
+				}
+			} );
 			System.out.println("OSGi is started");
 		} catch (final Exception e1) {
 			e1.printStackTrace();

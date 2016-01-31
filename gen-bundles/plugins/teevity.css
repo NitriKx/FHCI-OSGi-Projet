@@ -1,0 +1,495 @@
+/*           EXTARCTED FROM BOOTSTRAP 3            */
+/* Font used to draw the close notification button */
+@font-face {
+  font-family: 'Glyphicons Halflings';
+
+  src: url('./teevity-font/glyphicons-halflings-regular.eot');
+  src: url('./teevity-font/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('./teevity-font/glyphicons-halflings-regular.woff') format('woff'), url('./teevity-font/glyphicons-halflings-regular.ttf') format('truetype'), url('./teevity-font/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}
+.glyphicon {
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.glyphicon-remove:before {
+  content: "\e014";
+}
+.glyphicon-link:before {
+  content: "\e144";
+}
+
+
+
+/** 
+
+                     TEEVITY 
+
+**/
+
+span.loggedInCustomerEmail {
+	color: white;
+	font-size: 13px;
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	margin-right: 4px;
+  	margin-top: 7px;
+  	float: right;
+  	text-align: right;
+}
+
+span.loggedInCustomerEmail a {
+	font-weight: normal !important;	
+}
+
+span.loggedInCustomerRole {
+	color: white;
+	font-size: 13px;
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+/* SEARCH FORM STYLE */
+.selectionCounterText {
+	color: rgb(202, 202, 202);
+}
+
+.filterBoxLoader {
+	width: 16px;
+	height: 11px;
+	display: inline-block;
+  	margin-top: 2px;
+  	margin-bottom: -2px;
+	background-image:url('../images/teevity-ajax-loaderho.gif');
+}
+
+.metaCostAllocationUnitsContainer, .metaCostPartitionsContainer {
+	width: 300px;
+	overflow: auto;
+}
+
+.metaCostAllocationUnits, .metaCostPartitions {
+	min-width: 300px; 
+}
+
+/** Override the Ice style for the accounts filtering boxes **/
+.metaAccounts {
+	width: auto;
+	max-width: 250px;
+    min-width: 115px;
+}
+.metaAccountsContainer {
+	overflow-x: auto;
+}
+
+.metaFilterCostPartitions      { width: 289px; }
+.metaFilterCostAllocationUnits { width: 289px; }
+.metaFilterAccounts       { width: 104px }
+.metaFilterRegions        { width: 104px }
+.metaFilterProducts       { width: 100px }
+.metaFilterResourceGroups { width: 440px }
+.metaFilterOperations     { width: 220px }
+.metaFilterUsageTypes     { width: 220px }
+
+.metaFilterCostPartitions.withRegexpButton      { width: 255px; }
+.metaFilterCostAllocationUnits.withRegexpButton { width: 255px; }
+.metaFilterAccounts.withRegexpButton       { width: 70px }
+.metaFilterRegions.withRegexpButton        { width: 70px }
+.metaFilterProducts.withRegexpButton       { width: 65px }
+.metaFilterResourceGroups.withRegexpButton { width: 405px }
+.metaFilterOperations.withRegexpButton     { width: 185px }
+.metaFilterUsageTypes.withRegexpButton     { width: 185px }
+
+.legendBox .metaFilterLegend.withRegexpButton  { width: 270px }
+
+.legendBox.breakdown {
+	margin-top: 6px;
+}
+
+.pageTitle h1 {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+
+/* NOTIFICATIONS */
+.teevityUserNotificationsContainer {
+	margin-top: 15px;
+}
+
+.teevityUserNotificationsContainer > * {
+}
+
+.teevityUserNotificationsContainer > *:not(:last-child) {
+	margin-bottom: 10px;
+}
+
+.teevityUserNotificationItem {
+  text-align: center;
+}
+
+.teevityUserNotificationItem > div {
+	display: inline-block;
+  vertical-align: top;
+}
+
+.teevityUserNotificationsIframe {
+	display: inline;
+	overflow-y: hidden;
+	overflow-x: hidden;
+	border: none;
+	margin-right: -18px;
+}
+
+.teevityUserNotificationsCloseButton {
+	float: right;
+	margin-top: 6px;
+}
+
+
+/* ANGULAR JS */
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+[ng-cloak]#splash {
+    display: block !important;
+}
+#splash {
+	text-align: center;
+    top: 40%;
+    margin-top: 120px;
+    font-size: 14px;
+    display: none;
+}
+#splash.splasheditappgroup {
+	margin-bottom: 150px;
+}
+
+
+
+.editApplicationGroupListContainer {
+	width: 450px;
+	overflow: auto;
+}
+.editApplicationGroupListContainer select {
+	min-width:380px;
+}
+
+.errorGetData {
+	color:red;
+	font-size: 13px;
+}
+
+.reportText {
+	margin-left: 12px;
+}
+
+#reportUI {
+	display: inline-block;
+}
+
+#reportContainer {
+	display: inline-block;
+}
+
+#reportLink {
+	background: none;
+	border: none;
+	text-decoration: underline;
+	padding: 6px;
+}
+
+#reportLink:hover {
+	background: none !important;
+	color: none !important;
+}
+
+#reportName {
+	width: 50px;
+}
+
+.reportLockState {
+	float: right;
+}
+.reportLockDescriptionText {
+	float: right;
+	color: grey;
+	font-size: 11px;
+    font-family: verdana, arial, helvetica, sans-serif;
+    margin-right: 10px;
+    padding-top: 4px;
+}
+
+.selectionFilterBindingButton {
+	color: #333;
+	cursor: pointer;
+	font-size: 10px;
+	font-weight: bold;
+	margin: 1px;
+	margin-left: 4px;
+	overflow: visible;
+	display: inline-block;
+	line-height: 6px;
+	border-style: solid;
+	border-color: #DDD #DDD #DDD #DDD;
+	border-width: 1px 1px 1px 1px;
+	background: none no-repeat scroll 5px 50% #FFF;
+	white-space: nowrap;
+	padding: 4px;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+}
+
+.selectionFilterBindingButton:active, 
+    .selectionFilterBindingButton.active { background-color: #D4D4D4 !important; border-color: #D4D4D4 #D4D4D4 #D4D4D4 #D4D4D4; color: #000;    }
+
+.selectionFilterBindingButton:disabled { filter: alpha(opacity=50); opacity: 0.5; -moz-opacity: 0.50; background-color: inherit !important; border-color: inherit; color: inherit; cursor: default; }
+
+.selectionFilterBindingButton i {
+	font-size: 9px;
+}
+
+a#costSnapshotButton {
+	padding: 6px;
+}
+
+a#costSnapshotButton i {
+	padding-right: 10px;
+}
+
+
+
+
+/**
+
+	Override the main.css rules in order to set the legend table under the chart in the detail and appgroup pages
+	
+**/
+
+td {
+	white-space: nowrap;
+}
+
+div.buttons {
+	background-image: none;
+	background: transparent;
+	border: 0px;
+	margin-top: 3px;
+}
+
+div.buttons > div {
+	display: inline-block;
+}
+
+div.buttons div.submitButtons {
+	height: 32px;
+}
+
+.getDataLoader {
+	margin-top: 8px;
+	margin-left: 17px;	
+}
+
+.summaryContent .chartBox #event_filtering_container { margin-right: 4px; float:right; height: 19px; }
+
+.detailsContent .legendBox    { width: 100%; overflow: initial; margin-top: 10px; }
+.detailsContent .chartBox     { width: 100%; }
+.detailsContent .legendBox td { word-wrap: break-word; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 800px;}
+.detailsContent .chartAndLegendArea { background-color: #e6e6e6; border: 0px; margin-top: 0px;}
+.detailsContent .chartBox #event_filtering_container { margin-right: 4px; float:right; height: 25px; }
+
+.appgroupContent .legendBox     { width: 100%; margin-top: 10px; }
+.appgroupContent .chartBox      { width: 100%; }
+.appgroupContent .legendBox td  { word-wrap: break-word; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 800px; }
+.appgroupContent .chartAndLegendArea { background-color: #e6e6e6; border: 0px; }
+.appgroupContent .chartBox #event_filtering_container { margin-right: 4px;  float:right; height: 25px; }
+
+.reservationContent .legendBox     { width: 100%; margin-top: 10px; }
+.reservationContent .chartBox      { width: 100%; }
+.reservationContent .legendBox td  { word-wrap: break-word; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 800px; }
+
+.reservationContent .chartAndLegendArea { background-color: #e6e6e6; border: 0px; }
+.reservationContent .chartBox #event_filtering_container { margin-right: 4px; float:right; height: 25px; }
+
+.breakdownContent { margin: auto; width: 90%; padding: 20px 30px }
+.breakdownContent.graphOnly { padding: 0px; }
+.breakdownContent .chartAndLegendArea { background-color: #e6e6e6; border: 0px; }
+.breakdownContent .legendBox { width: 100%; display: inline-block; vertical-align:top; margin-top: 10px;}
+.breakdownContent .chartBox { width: 100%;  display: inline-block; vertical-align:top; padding-bottom: 9px;}
+.breakdownContent .chartBox #highchart_container { width: 100%; height: 600px; }
+.breakdownContent .chartBox #event_filtering_container { margin-right: 4px; margin-top: 6px; float:right; height: 25px; }
+
+
+.list {
+	margin-top: 4px;
+	margin-bottom: 10px;
+}
+
+.list th, .list td { 
+	white-space: nowrap;
+	text-overflow: ellipsis;
+    overflow-x: hidden; 
+}
+
+.legendFilterContainer {
+	float: right;
+	margin-right: 0px;
+	margin-top: -4px;
+}
+
+.legendBox tr.odd,  .list tr.odd   { background-color: #F5F5F5; }
+.legendBox tr.even, .list tr.even { background-color: white; }
+.legendBox tr:hover, .list tr:hover { background-color: #EAEAEA; } 
+
+
+
+/**
+
+    HIGHCHART - TOOLTIP STYLE
+
+**/
+
+.hightchartTooltipContent {
+	overflow-y: hidden;
+}
+
+.hightchartTooltipContent .itemTable {
+	display:table;
+	width: 100%;
+	
+	/* Control the space between the cell (ie. the space between the item name and its value) */
+	border-collapse: collapse;
+}
+
+.hightchartTooltipContent .item {
+    display: table-row;
+}
+
+.hightchartTooltipContent .item.selectedSeriesLine {
+    font-weight: bold;
+}
+
+
+.hightchartTooltipContent .item span {
+    display: table-cell;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.hightchartTooltipContent .item span.name {
+    text-align: left;
+    padding-right: 30px;
+    max-width: 400px;
+}
+
+
+.hightchartTooltipContent .item span.value {
+    text-align: right;
+}
+
+.hightchartTooltipContent .item.notSelectedSeriesLine span.value {
+    color: #b1b1b1;
+}
+
+.hightchartTooltipContent .item.selectedSeriesLine span.value {
+    color: black;
+}
+
+.hightchartTooltipContent .dateHeader {
+    font-size: x-small;
+}
+
+
+.highchartTooltip .tipMessage {
+    margin-top: 4px; 
+    padding-left: 6px;
+    padding-right: 6px; 
+    text-align: left; 
+    background-color: #616161
+}
+
+
+
+/**
+
+		DISPLAY CONFIGURATION STYLE
+
+**/
+
+.chartAndLegendArea.graphOnly {
+	background-color: #e6e6e6;
+	border: 0px;
+	padding: 0px;
+}
+
+/* When the page is included through an iframe, we adapt the style in order to make easier the integration in the top-level page */ 
+.iframeIncluded .appgroupContent, .iframeIncluded .detailsContent, .iframeIncluded .summaryContent, .iframeIncluded .reservationContent, .iframeIncluded .breakdownContent {
+	padding: 0px;
+	margin: 0px;
+	width: 100%;
+}
+
+.chartDescriptionMessageText.message {
+	margin-left: 9px;
+	margin-top: 2px;
+    margin-bottom: -2px;
+	float:left;
+}
+
+.message {
+	background-image: url('../images/skin/teevity-information.png')
+}
+
+.message.error {
+	background-image: url('../images/skin/teevity-error.png') !important;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+    color: #a94442;
+}
+
+/**
+
+	WIDGET MODE SPECIFIC STYLE
+
+**/
+
+.widgetLegendBox {
+	text-align: center;
+	
+	/** We only show the first line of the legend **/
+	overflow: hidden;
+	height: 20px;
+}
+
+.widgetLegendBox .item {
+	display: inline-block;
+	margin-left: 4px;
+	padding: 4px;
+	color: #333333 !important;
+	font-family: "Lucida Grande", "Lucida Sans Unicode", Arial, sans serif;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    fill: #333333;
+}
+
+.widgetLegendBox .legendIcon {
+	float: left; 
+	margin-right: 3px; 
+	width: 12px; 
+	height: 12px; 
+	border-top-left-radius: 6px; 
+	border-top-right-radius: 6px; 
+	border-bottom-left-radius: 6px; 
+	border-bottom-right-radius: 6px;
+}
+
+.iframeIncluded .summaryContent .chartBox, .iframeIncluded .summaryContent .legendBox {
+	margin: 0px;
+}

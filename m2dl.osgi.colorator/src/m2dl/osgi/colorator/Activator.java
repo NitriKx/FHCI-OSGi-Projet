@@ -1,21 +1,20 @@
 package m2dl.osgi.colorator;
 
 import java.util.Hashtable;
+import java.util.logging.Logger;
 
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceFactory;
 import org.osgi.framework.ServiceRegistration;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import m2dl.osgi.colorator.impl.ColorizerServiceImpl;
 import m2dl.osgi.editor.interfaces.Colorizer;
 
 public class Activator implements BundleActivator {
 
-	private static final Logger logger = LoggerFactory.getLogger("m2dl.osgi.syntaxparser");
+	private static final Logger logger = Logger.getLogger("m2dl.osgi.colorator");
 	
 	private static BundleContext context;
 	private ServiceRegistration<Colorizer> serviceRegistration;

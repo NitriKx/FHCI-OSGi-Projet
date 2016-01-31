@@ -1,0 +1,9 @@
+!SESSION 2016-01-31 20:51:49.557 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.8.0_66
+java.vendor=Oracle Corporation
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=fr_FR
+Command-line arguments:  -clean
+
+!ENTRY org.eclipse.osgi 4 0 2016-01-31 20:51:49.557
+!MESSAGE Bundle org.eclipse.fx.osgi not found.

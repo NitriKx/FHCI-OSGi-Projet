@@ -1,0 +1,9 @@
+!SESSION 2016-01-31 17:48:17.356 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.8.0_66
+java.vendor=Oracle Corporation
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=fr_FR
+Command-line arguments:  -clean
+
+!ENTRY org.eclipse.osgi 4 0 2016-01-31 17:48:17.356
+!MESSAGE Bundle /Applications/Eclipse OSGi.app/Contents/Eclipse/Users/benoit/Google Drive/Université/S9/Not Shared/FHCI/OSGi/sujet-tp/gen-bundles/plugins/dependencies/logback-core-1.0.7.jar not found.

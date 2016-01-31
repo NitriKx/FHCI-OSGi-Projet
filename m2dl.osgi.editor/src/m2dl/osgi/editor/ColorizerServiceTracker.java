@@ -1,15 +1,15 @@
 package m2dl.osgi.editor;
 
+import java.util.logging.Logger;
+
 import org.osgi.framework.ServiceReference;
 import org.osgi.util.tracker.ServiceTrackerCustomizer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import m2dl.osgi.editor.interfaces.Colorizer;
 
 public class ColorizerServiceTracker implements ServiceTrackerCustomizer<Colorizer, Colorizer> {
 
-	private static final Logger logger = LoggerFactory.getLogger(ColorizerServiceTracker.class);
+	private static final Logger logger = Logger.getLogger(ColorizerServiceTracker.class.getName());
 	
 	private CodeViewerController codeViewerController;
 
@@ -21,7 +21,7 @@ public class ColorizerServiceTracker implements ServiceTrackerCustomizer<Coloriz
 	public Colorizer addingService(ServiceReference<Colorizer> reference) {
 		Colorizer colorizerService = Activator.context.getService(reference);
 		codeViewerController.colorizerService = colorizerService;
-		logger.info("Colorizer service {} has been loaded", colorizerService.getClass().getName());
+		logger.info(String.format("Colorizer service %s has been loaded", colorizerService.getClass().getName()));
 		return colorizerService;
 	}
 

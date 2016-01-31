@@ -12,6 +12,8 @@ public class TokenizerCSSImpl implements Tokenizer {
 	private static final Map<Pattern, String> tokenizerRules = new HashMap<Pattern, String>();
 	static {
 		tokenizerRules.put(Pattern.compile("(\\/\\*(?:.|\\n)*?\\*\\/)", Pattern.CASE_INSENSITIVE), ":comment{$1}");
+		tokenizerRules.put(Pattern.compile("[^'\"](?:\\.|\\#|@)?[^\\s'\"]+ {", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE), ":keyword{$1}");
+		tokenizerRules.put(Pattern.compile("([^\\.\\#\\s]+)\\s*:", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE), ":keyword{$1}:");
 	}
 	
 	@Override

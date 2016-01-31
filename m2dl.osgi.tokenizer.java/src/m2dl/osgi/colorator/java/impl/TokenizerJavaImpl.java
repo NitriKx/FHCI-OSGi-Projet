@@ -10,10 +10,11 @@ public class TokenizerJavaImpl implements Tokenizer {
 			"(Interger|Long|Boolean|Float|Double|int|double|float|String|long|abstract|continue|for|new|switch|assert|default|goto|package|synchronized|boolean|do|if|private|this|break|double|implements|protected|throw|byte|else|import|public|throws|case|enum|instanceof|return|transient|catch|extends|int|short|try|char|final|interface|static|void|class|finally|long|strictfp|volatile|const|float|native|super|while)");
 	
 	private static final Pattern javaCommentSingleLineSelector = Pattern.compile(
-			"//(.*)$", Pattern.MULTILINE);
+			"\\/\\/(.*)$", Pattern.MULTILINE);
 	
+	// https://regex101.com/r/oP5tY2/1
 	private static final Pattern javaCommentMultiLineSelector = Pattern.compile(
-			"/\\*[^\\*]*\\*/");
+			"(\\/\\*(?:.|\\n)*?\\*\\/)");
 	
 	@Override
 	public String tokenize(String textToTokenize) {
